@@ -16,6 +16,7 @@ def test_guest_can_add_product_to_basket(browser, promo_code):
     product_page.should_be_product_name_price_equals_added_to_basket_product_price()
 
 
+@pytest.mark.xfail
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     url = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/'
     product_page = ProductPage(browser, url)
@@ -31,6 +32,7 @@ def test_guest_cant_see_success_message(browser):
     product_page.should_not_be_success_message()  # 2.Нет сообщения об успехе с помощью is_not_element_present
 
 
+@pytest.mark.xfail
 def test_message_disappeared_after_adding_product_to_basket(browser):
     url = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/'
     product_page = ProductPage(browser, url)
