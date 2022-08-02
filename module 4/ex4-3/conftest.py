@@ -5,9 +5,9 @@ import pytest
 
 def pytest_addoption(parser):
     parser.addoption('--browser_name', action='store', default='chrome',
-                    help="Choose browser: chrome or firefox")
-    parser.addoption('--language', action='store', default='en',
-                    help='Choose browser language: ru, en, es')
+                     help="Choose browser: chrome or firefox")
+    parser.addoption('--language', action='store', default='user_language',
+                     help='Choose browser language: ru, en, es')
 
 
 @pytest.fixture
@@ -18,7 +18,7 @@ def browser(request):
     if browser_name == "chrome":
         print("\nstart chrome browser for test..")
         options = Options()
-        options.add_argument('headless')
+        # options.add_argument('headless')  # активировать для запуска UI-прогонов
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         options.add_experimental_option('prefs', {'intl.accept_languages': language})
         browser = webdriver.Chrome(options=options)
@@ -28,7 +28,7 @@ def browser(request):
         fp = webdriver.FirefoxProfile()
         fp.set_preference("intl.accept_languages", language)
         browser = webdriver.Firefox(firefox_profile=fp)
-        
+
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
 
