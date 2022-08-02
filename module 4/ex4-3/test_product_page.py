@@ -1,4 +1,5 @@
 from pages.product_page import ProductPage
+from pages.login_page import LoginPage
 import pytest
 
 
@@ -36,3 +37,12 @@ def test_message_disappeared_after_adding_product_to_basket(browser):
     product_page.open()  # 1.Открываем страницу товара
     product_page.add_product_to_basket()  # 2.Добавляем товар в корзину
     product_page.should_success_message_disappear()  # 3.Проверяем, что нет сообщения об успехе с помощью is_disappeared
+
+
+def test_guest_can_go_to_login_page_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = ProductPage(browser, link)
+    page.open()
+    page.go_to_login_page()
+    login_page = LoginPage(browser, browser.current_url)
+    login_page.should_be_login_page()
